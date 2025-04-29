@@ -1,0 +1,39 @@
+{
+  "id": "display-anything-in-chat",
+  "title": "Display Anything in Chat",
+  "description": "<p>Adds a button to every item to display it in chat.</p>",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Jeido_Uran",
+      "discord": "jeido_uran",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "display.js"
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "4.2.2",
+          "verified":"4.3.9",
+          "maximum": "4.9.99"
+        }
+      }
+    ],
+    
+    "requires": [
+
+    ]
+  },
+  "languages": [],
+  "compatibility": {
+    "minimum": "12.331",
+    "verified": "13.340",
+    "maximum": "13"
+  }
+}
