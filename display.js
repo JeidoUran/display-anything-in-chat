@@ -29,34 +29,6 @@ async function displayInChat(item) {
     item.displayCard();
   } else {
 
-const enrichedDescription = await TextEditor.enrichHTML(item.system.description?.value ?? "", {
-  async: true,
-  relativeTo: item
-});
-
-const properties = [];
-const tags = [];
-
-if (item.system.activation?.type) {
-  properties.push(game.i18n.localize(CONFIG.DND5E.abilityActivationTypes[item.system.activation.type] ?? item.system.activation.type));
-}
-if (item.system.target?.type) {
-  properties.push(game.i18n.localize(CONFIG.DND5E.targetTypes[item.system.target.type] ?? item.system.target.type));
-}
-if (item.system.range?.value) {
-  const units = game.i18n.localize(CONFIG.DND5E.distanceUnits[item.system.range.units] ?? "");
-  properties.push(`${item.system.range.value} ${units}`);
-}
-if (item.system.duration?.value) {
-  const durationText = game.i18n.format("DND5E.Duration", {
-    value: item.system.duration.value,
-    units: game.i18n.localize(CONFIG.DND5E.timePeriods[item.system.duration.units] ?? "")
-  });
-  properties.push(durationText);
-}
-
-const hasProperties = properties.length > 0 || tags.length > 0;
-
 if (game.modules.get("essence-system")?.active) renderEssenceSlots(item);
 
 let content = await renderTemplate("systems/dnd5e/templates/chat/item-card.hbs", {
@@ -73,14 +45,7 @@ let content = await renderTemplate("systems/dnd5e/templates/chat/item-card.hbs",
     hasAttack: false,
     hasDamage: false
   },
-  data: {
-    description: {
-      chat: enrichedDescription
-    },
-    properties,
-    tags,
-    hasProperties
-  }
+  data: await item.system.getCardData(),
 });
 
 if (game.modules.get("essence-system")?.active) {
